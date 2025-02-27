@@ -5,10 +5,10 @@ import Column from "../../styles/Common/Column";
 import BellIcon from "../../assets/Common/BellIcon.svg?react";
 import CommonButton from "../../components/CommonButton";
 import {useNavigate} from "react-router-dom";
-import {handleAllowNotification} from "../../utils/firebaseConfig";
 import Typography from "../../components/Typography";
 import {usePatchUserNotificationStatus} from "../../layout/Aside/hooks/usePatchUserNotificationStatus";
 import {usePatchUserFcmToken} from "./hooks/usePatchUserFcmToken";
+import {useHandleAllowNotification} from "./hooks/useHandleAllowNotification.ts";
 
 interface NotificationModalProps {
     isModalOpen: boolean;
@@ -19,13 +19,14 @@ export default function NotificationModal({isModalOpen, setIsModalOpen}: Notific
     const navigate = useNavigate();
     const patchUserFcmToken = usePatchUserFcmToken();
     const patchUserNotificationStatus = usePatchUserNotificationStatus();
+    const handleAllowNotification = useHandleAllowNotification();
 
     const clickButton = async (isAllow: boolean) => {
         if (isAllow) {
             const {result, userFcmToken} = await handleAllowNotification();
             if (result === "success") {
-                await patchUserFcmToken(userFcmToken); // 여기서 토큰이 저장이 됐는지 확인
-                patchUserNotificationStatus(true);
+                const patchResult = await patchUserFcmToken(userFcmToken);
+                if (patchResult?.data?.success) patchUserNotificationStatus(true);
             }
         }
         navigate('/register/complete');

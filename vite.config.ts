@@ -5,6 +5,9 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    server: {
+        port: 3000,
+    },
     plugins: [react(), VitePWA({
         registerType: 'autoUpdate',
         injectRegister: false,
@@ -85,5 +88,5 @@ export default defineConfig({
             suppressWarnings: true,
             type: 'module',
         },
-    }),svgr()],
+    }), svgr()],
 })

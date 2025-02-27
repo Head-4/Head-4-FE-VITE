@@ -5,4 +5,5 @@ export const queryKeys = {
     userKeywords: "userKeywords",
     articles: "articles",
     notifications: "notifications",
+    userFcmToken: "userFcmToken",
 };

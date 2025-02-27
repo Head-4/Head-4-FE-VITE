@@ -11,7 +11,8 @@ import {TextOverflow} from "../../../styles/Common/TextOverflow";
 import {useUserNotificationStatus} from "../hooks/useUserNotificationStatus";
 import {usePatchUserNotificationStatus} from "../hooks/usePatchUserNotificationStatus";
 import {usePatchUserFcmToken} from "../../../pages/utilPages/hooks/usePatchUserFcmToken";
-import {handleAllowNotification} from "../../../utils/firebaseConfig";
+import {useHandleAllowNotification} from "../../../pages/utilPages/hooks/useHandleAllowNotification.ts";
+import {useUserFcmToken} from "../../../pages/utilPages/hooks/useUserFcmToken.ts";
 
 const AsideItems = [
     {
@@ -36,17 +37,18 @@ export default function AsideBottom() {
     const userNotificationStatus = useUserNotificationStatus();
     const patchUserNotificationStatus = usePatchUserNotificationStatus();
     const patchUserFcmToken = usePatchUserFcmToken();
+    const handleAllowNotification = useHandleAllowNotification();
+    const userFcmToken = useUserFcmToken();
 
     const clickKeyWordToggle = async () => {
         if (!userNotificationStatus?.data) {
-            // 토큰 있는지 없는지 확인하는 api 있어야 할 듯 - 유저 정보에 저장
-            if (Notification.permission === "granted"){
+            if (Notification.permission === "granted" && userFcmToken?.data) {
                 patchUserNotificationStatus(true);
-            }else{
+            } else {
                 const {result, userFcmToken} = await handleAllowNotification();
                 if (result === "success") {
-                    await patchUserFcmToken(userFcmToken); // 여기서 토큰이 저장이 됐는지 확인
-                    patchUserNotificationStatus(true);
+                    const patchResult = await patchUserFcmToken(userFcmToken);
+                    if (patchResult?.data?.success) patchUserNotificationStatus(true);
                 }
             }
         } else {
