@@ -1,9 +1,12 @@
 import React, {useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import postKakaoToken from "../../../apis/login/postKakaoToken";
+import {queryKeys} from "../../../tanstack-query/constants.ts";
+import {useQueryClient} from "@tanstack/react-query";
 
 export default function KakaoLoading() {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const GetToken = async (code: string): Promise<void> => {
         try {
@@ -14,7 +17,10 @@ export default function KakaoLoading() {
                 return;
             }
 
-            localStorage.setItem('isFirst',result.data.data);
+            localStorage.setItem("accessToken",result.headers['Authorization']);
+            localStorage.setItem('isFirst', result.data.data);
+            await queryClient.invalidateQueries({queryKey: [queryKeys.userAuth]});
+
             if (result.data.data) {
                 navigate('/register/university');
             } else {
