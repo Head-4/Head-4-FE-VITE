@@ -2,6 +2,8 @@ import {createBrowserRouter,} from "react-router-dom";
 import {lazy, Suspense} from "react";
 import {ErrorPage} from "../pages/utilPages/ErrorPage";
 import {LoadingPage} from "../pages/utilPages/LoadingPage";
+import GuestRoute from "./GuestRoute.tsx";
+import ProtectedRoute from "./ProtectedRoute.tsx";
 
 const Layout = lazy(() => import("../layout/Layout"));
 const Login = lazy(() => import("../pages/login/Login"));
@@ -23,47 +25,28 @@ export const router = createBrowserRouter([
                 {
                     errorElement: <ErrorPage/>,
                     children: [
-                        {index: true, element: <Login/>},
                         {
-                            path: "main",
-                            element: <Main/>,
+                            element: <GuestRoute/>,
+                            children: [
+                                {index: true, element: <Login/>},
+                                {path: "kakao/callback", element: <KakaoLoading/>,},
+                            ],
                         },
                         {
-                            path: "kakao/callback",
-                            element: <KakaoLoading/>,
+                            element: <ProtectedRoute/>,
+                            children: [
+                                {path: "main", element: <Main/>,},
+                                {path: "register/university", element: <UniversityEdit/>,},
+                                {path: "register/keyword", element: <KeyWordEdit/>,},
+                                {path: "register/complete", element: <CompletePage/>,},
+                                {path: "setting/university", element: <UniversityEdit/>,},
+                                {path: "setting/keyword", element: <KeyWordEdit/>,},
+                                {path: "notification", element: <Notification/>,},
+                                {path: "search", element: <Search/>,},
+                                {path: "faq", element: <Faq/>,},
+                            ],
                         },
-                        {
-                            path: "register/university",
-                            element: <UniversityEdit/>,
-                        },
-                        {
-                            path: "register/keyword",
-                            element: <KeyWordEdit/>,
-                        },
-                        {
-                            path: "register/complete",
-                            element: <CompletePage/>,
-                        },
-                        {
-                            path: "notification",
-                            element: <Notification/>,
-                        },
-                        {
-                            path: "search",
-                            element: <Search/>,
-                        },
-                        {
-                            path: "faq",
-                            element: <Faq/>,
-                        },
-                        {
-                            path: "setting/university",
-                            element: <UniversityEdit/>,
-                        },
-                        {
-                            path: "setting/keyword",
-                            element: <KeyWordEdit/>,
-                        },
+
                     ],
                 }
             ],
