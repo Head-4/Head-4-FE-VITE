@@ -29,12 +29,13 @@ export default function NotificationModal({isModalOpen, setIsModalOpen}: Notific
                 if (patchResult?.data?.success) patchUserNotificationStatus(true);
             }
         }
+        localStorage.setItem('isFirst', 'false');
         navigate('/register/complete');
     }
 
     return (
         <>
-            {isModalOpen && <Overlay onClick={() => setIsModalOpen(false)}/>}
+            {isModalOpen && <Overlay/>}
             <NotificationModalDiv $isModalOpen={isModalOpen}>
                 <Column $verticalAlign="center">
                     <BellIconDiv>

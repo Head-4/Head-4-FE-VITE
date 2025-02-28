@@ -5,7 +5,7 @@ import getValidate from "../../apis/login/getValidate.ts";
 export function useAuth() {
     const fallback: boolean = false;
 
-    const {data: userIsAuthenticated = fallback} = useQuery({
+    const {data: userIsAuthenticated = fallback, isLoading} = useQuery({
         queryKey: [queryKeys.userAuth],
         queryFn: getValidate,
         staleTime: Infinity,
@@ -13,5 +13,6 @@ export function useAuth() {
 
     return {
         userIsAuthenticated,
+        isLoading,
     };
 }

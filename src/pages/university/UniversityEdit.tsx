@@ -38,7 +38,7 @@ export default function UniversityEdit() {
         if (isFirst) {
             navigate('/register/keyword');
         } else {
-            showAlert(true, result?.data.success); // 확인 필요
+            showAlert(true, result?.data.success);
         }
         setUniversity('');
     }

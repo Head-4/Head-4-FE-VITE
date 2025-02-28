@@ -12,12 +12,16 @@ export default function AsideLogOut() {
 
     const clickLogOut = () => {
         postKakaoLogout();
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem('isFirst');
         toggleAside();
         navigate('/');
     }
 
     const clickWithdrawal = () => {
         deleteKakaoWithdrawal();
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem('isFirst');
         toggleAside();
         navigate('/');
     }

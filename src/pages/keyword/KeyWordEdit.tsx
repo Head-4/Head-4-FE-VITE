@@ -35,7 +35,7 @@ export default function KeyWordEdit() {
     }
 
     const clickButton = () => {
-        setIsModalOpen(true)
+        setIsModalOpen(true);
     }
 
     return (

@@ -22,7 +22,7 @@ export default defineConfig({
             short_name: 'univ-on',
             description: 'university notification service',
             theme_color: '#FAFAFA',
-            background_color: '#ffffff',
+            background_color: '#FAFAFA',
             display: 'standalone',
             start_url: '/',
             icons: [

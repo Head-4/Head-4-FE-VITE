@@ -17,7 +17,7 @@ export default function KakaoLoading() {
                 return;
             }
 
-            localStorage.setItem("accessToken",result.headers['Authorization']);
+            localStorage.setItem("accessToken", result.headers['authorization']);
             localStorage.setItem('isFirst', result.data.data);
             await queryClient.invalidateQueries({queryKey: [queryKeys.userAuth]});
 
