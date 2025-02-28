@@ -19,13 +19,7 @@ export default function KakaoLoading() {
 
             localStorage.setItem("accessToken", result.headers['authorization']);
             localStorage.setItem('isFirst', result.data.data);
-            await queryClient.invalidateQueries({queryKey: [queryKeys.userAuth]});
-
-            if (result.data.data) {
-                navigate('/register/university');
-            } else {
-                navigate('/main');
-            }
+            await queryClient.refetchQueries({queryKey: [queryKeys.userAuth]});
         } catch (error) {
             console.log(error);
         }

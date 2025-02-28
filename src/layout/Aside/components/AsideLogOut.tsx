@@ -1,31 +1,26 @@
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
 import useAsideStore from "../../../store/AsideStore";
-import {usePostKakaoLogout} from "../hooks/usePostKakaoLogout.ts";
-import {useDeleteKakaoWithdrawal} from "../hooks/useDeleteKakaoWithdrawal.ts";
+import { usePostKakaoLogout } from "../hooks/usePostKakaoLogout.ts";
+import { useDeleteKakaoWithdrawal } from "../hooks/useDeleteKakaoWithdrawal.ts";
+import { useNavigate } from "react-router-dom";
 
 export default function AsideLogOut() {
-    const navigate = useNavigate();
     const toggleAside = useAsideStore((state) => state.toggleAside);
     const postKakaoLogout = usePostKakaoLogout();
     const deleteKakaoWithdrawal = useDeleteKakaoWithdrawal();
+    const navigate = useNavigate();
 
-    const clickLogOut = () => {
-        postKakaoLogout();
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem('isFirst');
+    const clickLogOut = async () => {
+        await postKakaoLogout();
         toggleAside();
         navigate('/');
     }
 
-    const clickWithdrawal = () => {
-        deleteKakaoWithdrawal();
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem('isFirst');
+    const clickWithdrawal = async () => {
+        await deleteKakaoWithdrawal();
         toggleAside();
         navigate('/');
     }
-
 
     return (
         <>
