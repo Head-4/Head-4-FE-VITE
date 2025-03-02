@@ -4,27 +4,37 @@ import MainLogo from "../../assets/Logo/MainLogo.svg?react";
 import Column from "../../styles/Common/Column";
 import PwaInstallModal from "../utilPages/PWAInstallModal";
 import Typography from "../../components/Typography";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Login() {
     const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_APP_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+    const queryClient = useQueryClient();
+
+    // 로그인 페이지에 진입할 때 모든 쿼리 제거
+    useEffect(() => {
+        // 모든 쿼리 캐시 제거
+        queryClient.removeQueries();
+        console.log("로그인 페이지 진입: 모든 쿼리가 제거되었습니다.");
+    }, [queryClient]);
 
     const clickKakaoLogin = () => {
         window.location.href = KAKAO_LOGIN_URL;
     }
 
     return (
-        <Column $gap={164} $verticalAlign="center" style={{margin: 'auto 0', position: 'relative'}}>
-            <PwaInstallModal/>
+        <Column $gap={164} $verticalAlign="center" style={{ margin: 'auto 0', position: 'relative' }}>
+            <PwaInstallModal />
             <LoginLogoSection>
-                <MainLogo width='100%'/>
-                <Typography typoSize="T3_semibold" color="Black" style={{marginTop: "28px"}}>
-                    나에게 필요한 공지만<br/>빠르게 받아볼 수 있어요</Typography>
+                <MainLogo width='100%' />
+                <Typography typoSize="T3_semibold" color="Black" style={{ marginTop: "28px" }}>
+                    나에게 필요한 공지만<br />빠르게 받아볼 수 있어요</Typography>
             </LoginLogoSection>
             <LoginButtonSection>
-                <Typography typoSize="T4_medium" textAlign="center" style={{color: "#6F6F6F", marginBottom: "16px"}}>
+                <Typography typoSize="T4_medium" textAlign="center" style={{ color: "#6F6F6F", marginBottom: "16px" }}>
                     카카오로 바로 시작해 보세요</Typography>
                 <LoginButton onClick={clickKakaoLogin}>
-                    <KakaoIcon/>
+                    <KakaoIcon />
                     <KakaoLogin>카카오 로그인</KakaoLogin>
                 </LoginButton>
             </LoginButtonSection>
@@ -33,7 +43,7 @@ export default function Login() {
 };
 
 const LoginLogoSection = styled.section`
-    color: ${({theme}) => theme.Gray50};
+    color: ${({ theme }) => theme.Gray50};
     text-align: center;
 `;
 
@@ -52,7 +62,7 @@ const LoginButton = styled.button`
 
 const KakaoLogin = styled.span`
     flex: 1;
-    color: ${({theme}) => theme.Black};
+    color: ${({ theme }) => theme.Black};
     font-size: 20px;
     font-weight: 600;
 `;
