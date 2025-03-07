@@ -10,7 +10,7 @@ export default defineConfig({
     },
     plugins: [react(), VitePWA({
         registerType: 'autoUpdate',
-        injectRegister: false,
+        injectRegister: "script",
 
         pwaAssets: {
             disabled: false,
@@ -18,9 +18,9 @@ export default defineConfig({
         },
 
         manifest: {
-            name: 'univ-on',
-            short_name: 'univ-on',
-            description: 'university notification service',
+            name: 'univon',
+            short_name: 'univon',
+            description: '대학교 공지 알림 서비스',
             theme_color: '#FAFAFA',
             background_color: '#FAFAFA',
             display: 'standalone',
@@ -73,13 +73,6 @@ export default defineConfig({
             globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
             cleanupOutdatedCaches: true,
             clientsClaim: true,
-
-            // runtimeCaching: [
-            //     {
-            //         urlPattern: /^https:\/\/server\.univ-on\.com\/.*/,
-            //         handler: 'NetworkOnly',
-            //     },
-            // ],
         },
 
         devOptions: {
