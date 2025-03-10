@@ -15,70 +15,72 @@ import {useHandleAllowNotification} from "../../../pages/utilPages/hooks/useHand
 import {useUserFcmToken} from "../../../pages/utilPages/hooks/useUserFcmToken.ts";
 
 const AsideItems = [
-    {
-        to: "/setting/university",
-        Icon: UniversityIcon,
-        label: "학교 설정",
-    },
-    {
-        to: "/setting/keyword",
-        Icon: KeywordIcon,
-        label: "키워드 설정",
-    },
-    {
-        to: "/faq",
-        Icon: MessageIcon,
-        label: "건의하기",
-    },
+  {
+    to: "/setting/university",
+    Icon: UniversityIcon,
+    label: "학교 설정",
+  },
+  {
+    to: "/setting/keyword",
+    Icon: KeywordIcon,
+    label: "키워드 설정",
+  },
+  // {
+  //   to: "/faq",
+  //   Icon: MessageIcon,
+  //   label: "건의하기",
+  // },
 ];
 
 export default function AsideBottom() {
-    const toggleAside = useAsideStore((state) => state.toggleAside);
-    const userNotificationStatus = useUserNotificationStatus();
-    const patchUserNotificationStatus = usePatchUserNotificationStatus();
-    const patchUserFcmToken = usePatchUserFcmToken();
-    const handleAllowNotification = useHandleAllowNotification();
-    const userFcmToken = useUserFcmToken();
+  const toggleAside = useAsideStore((state) => state.toggleAside);
+  const userNotificationStatus = useUserNotificationStatus();
+  const patchUserNotificationStatus = usePatchUserNotificationStatus();
+  const patchUserFcmToken = usePatchUserFcmToken();
+  const handleAllowNotification = useHandleAllowNotification();
+  const userFcmToken = useUserFcmToken();
 
-    const clickKeyWordToggle = async () => {
-        if (!userNotificationStatus?.data) {
-            if (Notification.permission === "granted" && userFcmToken?.data) {
-                patchUserNotificationStatus(true);
-            } else {
-                const {result, userFcmToken} = await handleAllowNotification();
-                if (result === "success") {
-                    const patchResult = await patchUserFcmToken(userFcmToken);
-                    if (patchResult?.data?.success) patchUserNotificationStatus(true);
-                }
-            }
-        } else {
-            console.log('알림 거절')
-            patchUserNotificationStatus(false);
+  const clickKeyWordToggle = async () => {
+    if (!userNotificationStatus?.data) {
+      if (Notification.permission === "granted" && userFcmToken?.data) {
+        patchUserNotificationStatus(true);
+      } else if (Notification.permission === "denied") {
+        alert('브라우저 알림 권한을 허용해주세요!');
+      } else if (Notification.permission === "default") {
+        const {result, userFcmToken} = await handleAllowNotification();
+        if (result === "success") {
+          const patchResult = await patchUserFcmToken(userFcmToken);
+          if (patchResult?.data?.success) patchUserNotificationStatus(true);
         }
-    };
+      }
+    } else {
+      patchUserNotificationStatus(false);
+    }
+  };
 
-    return (
-        <>
-            <OnOffDiv>
-                <BellIcon/>
-                <AsideSetting typoSize="B1_semibold" color="Black">키워드 알림</AsideSetting>
-                <KeyWordOnOffButton onClick={clickKeyWordToggle} $keyWordToggle={userNotificationStatus?.data}>
-                    {userNotificationStatus?.data ? "ON" : "OFF"}
-                </KeyWordOnOffButton>
-            </OnOffDiv>
-            <ul>
-                {AsideItems.map(({to, Icon, label}, index) => (
-                    <li key={index}>
-                        <AsideLink to={to} onClick={toggleAside}>
-                            <Icon/>
-                            <AsideSetting typoSize="B1_semibold" color="Black">{label}</AsideSetting>
-                            <ExpandIcon/>
-                        </AsideLink>
-                    </li>
-                ))}
-            </ul>
-        </>
-    );
+  return (
+    <>
+      <OnOffDiv>
+        <BellIcon/>
+        <AsideSetting typoSize="B1_semibold" color="Black">키워드 알림</AsideSetting>
+        <KeyWordOnOffButton onClick={clickKeyWordToggle}
+                            $keyWordToggle={userNotificationStatus?.data && Notification.permission === "granted"}>
+          {userNotificationStatus?.data && Notification.permission === "granted" ? "ON" : "OFF"}
+        </KeyWordOnOffButton>
+      </OnOffDiv>
+      <ul>
+        {AsideItems.map(({to, Icon, label}, index) => (
+          <li key={index}>
+            <AsideLink to={to} onClick={toggleAside}>
+              <Icon/>
+              <AsideSetting typoSize="B1_semibold" color="Black">{label}</AsideSetting>
+              <ExpandIcon/>
+            </AsideLink>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 const OnOffDiv = styled.div`
