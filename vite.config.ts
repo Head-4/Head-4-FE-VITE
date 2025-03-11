@@ -64,30 +64,8 @@ export default defineConfig({
             ],
         },
 
-        // workbox: {
-        //     globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-        //     cleanupOutdatedCaches: true,
-        //     clientsClaim: true,
-        //     skipWaiting: true,
-        //
-        //     runtimeCaching: [
-        //         {
-        //             urlPattern: /.*/,
-        //             handler: 'NetworkFirst',
-        //             options: {
-        //                 cacheName: 'all-cache',
-        //                 expiration: {
-        //                     maxEntries: 100,
-        //                     maxAgeSeconds: 60 * 5,
-        //                 },
-        //                 networkTimeoutSeconds: 10,
-        //             },
-        //         },
-        //     ],
-        // },
-
         devOptions: {
-            enabled: true,
+            enabled: false,
             navigateFallback: 'index.html',
             suppressWarnings: true,
             type: 'module',
