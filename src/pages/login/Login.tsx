@@ -2,7 +2,6 @@ import styled from "styled-components";
 import KakaoIcon from "../../assets/Login/KakaoIcon.svg?react";
 import MainLogo from "../../assets/Logo/MainLogo.svg?react";
 import Column from "../../styles/Common/Column";
-import PwaInstallModal from "../utilPages/PWAInstallModal";
 import Typography from "../../components/Typography";
 
 export default function Login() {
@@ -14,7 +13,6 @@ export default function Login() {
 
     return (
         <Column $gap={164} $verticalAlign="center" style={{margin: 'auto 0', position: 'relative'}}>
-            <PwaInstallModal/>
             <LoginLogoSection>
                 <MainLogo width='100%'/>
                 <Typography typoSize="T3_semibold" color="Black" style={{marginTop: "28px"}}>
