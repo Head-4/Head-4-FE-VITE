@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import AsideTop from "./components/AsideTop";
 import AsideBottom from "./components/AsideBottom";
@@ -14,11 +14,15 @@ export default function Aside({pageRoute}: AsideProps) {
     const isAsideOpen = useAsideStore((state) => state.isAsideOpen);
     const toggleAside = useAsideStore((state) => state.toggleAside);
 
-    if (isAsideOpen) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'auto';
-    }
+    useEffect(() => {
+        if (isAsideOpen) {
+            document.body.style.overflow = 'hidden';
+        }
+        
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isAsideOpen]);
 
     return (
         <>

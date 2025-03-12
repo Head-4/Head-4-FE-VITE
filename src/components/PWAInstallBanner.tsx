@@ -42,6 +42,18 @@ const PWAInstallBanner = () => {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
+    if (showBanner) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showBanner]);
+
+  useEffect(() => {
     // 이미 설치되어 있는지 확인 (standalone 모드)
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
       (navigator as NavigatorWithStandalone).standalone;
@@ -166,7 +178,7 @@ const PWAModalDiv = styled.div`
     z-index: 1000;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 50vh;
     transform: translate(-50%, -50%);
     width: 95%;
     border-radius: 20px;
