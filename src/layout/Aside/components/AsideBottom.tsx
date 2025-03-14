@@ -46,7 +46,7 @@ export default function AsideBottom() {
         patchUserNotificationStatus(true);
       } else if (Notification.permission === "denied") {
         alert('브라우저 알림 권한을 허용해주세요!');
-      } else if (Notification.permission === "default") {
+      } else {
         const {result, userFcmToken} = await handleAllowNotification();
         if (result === "success") {
           const patchResult = await patchUserFcmToken(userFcmToken);
