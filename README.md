@@ -32,12 +32,12 @@
 ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 
 ---
-## 화면 구성 📺
-| 메인 페이지  |  소개 페이지   |
+## 화면 구성
+| 메인 페이지  |  알림 페이지   |
 | :-------------------------------------------: | :------------: |
-|  <img width="329" src=""/> |  <img width="329" src=""/>|  
-| 강좌 소개 페이지   |  강의 영상 페이지   |  
-| <img width="329" src=""/>   |  <img width="329" src=""/>     |
+|  <img width="200" height="350" src="https://github.com/user-attachments/assets/90a73ba2-d493-42ca-88a9-9a4eb167551c"/> |  <img width="200" height="350" src="https://github.com/user-attachments/assets/a5972767-5c33-45aa-b9dc-3a8d77b5608b"/>|  
+| 키워드 설정 페이지   |  학교 설정 페이지   |  
+| <img width="200"  height="350" src="https://github.com/user-attachments/assets/629e8bd7-9649-4ae7-9a53-29f2f2590d5b"/>   |  <img width="200" height="350" src="https://github.com/user-attachments/assets/8e7c82ff-c0a7-4131-aedf-9975ae989bf1"/>     |
 
 ---
 ## 주요 기능
